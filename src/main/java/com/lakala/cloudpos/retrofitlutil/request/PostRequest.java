@@ -6,6 +6,7 @@ import com.lakala.cloudpos.retrofitlutil.RetrofitUtil;
 import com.lakala.cloudpos.retrofitlutil.call.RetrofitCall;
 import com.lakala.cloudpos.retrofitlutil.inter.BaseRequestInter;
 
+import java.util.HashMap;
 import java.util.Map;
 
 import okhttp3.MediaType;
@@ -54,6 +55,10 @@ public class PostRequest extends BaseRequest {
 
         if (TextUtils.isEmpty(content)) {
             throw new IllegalArgumentException("content is null");
+        }
+
+        if (heads == null) {
+            heads = new HashMap<>();
         }
 
         return request.doPost(url, RequestBody.create(mediaType, content), heads);

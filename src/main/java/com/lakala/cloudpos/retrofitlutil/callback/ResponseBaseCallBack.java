@@ -15,11 +15,11 @@ import okhttp3.ResponseBody;
 public abstract class ResponseBaseCallBack extends BaseCallBack<HttpResponse> {
 
     @Override
-    public HttpResponse parseResponse(Response response) {
+    public HttpResponse parseResponse(retrofit2.Response<ResponseBody> response) {
         return getResponse(response);
     }
 
-    private HttpResponse getResponse(Response response) {
+    private HttpResponse getResponse(retrofit2.Response<ResponseBody> response) {
         if (response == null) {
             return null;
         }

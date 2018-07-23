@@ -6,6 +6,7 @@ import com.lakala.cloudpos.retrofitlutil.inter.BaseRequestInter;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -50,6 +51,14 @@ public class PostFormFileRequest extends BaseRequest {
 
         if (files == null || files.size() == 0) {
 
+            if (params == null) {
+                params = new HashMap<>();
+            }
+
+            if (heads == null) {
+                heads = new HashMap<>();
+            }
+
             return request.doPostForm(url, params, heads);
 
         } else {
@@ -63,6 +72,14 @@ public class PostFormFileRequest extends BaseRequest {
                 if (file != null && file.exists()) {
                     list.add(MultipartBody.Part.createFormData("file", file.getName(), RequestBody.create(mediaType, file)));
                 }
+            }
+
+            if (params == null) {
+                params = new HashMap<>();
+            }
+
+            if (heads == null) {
+                heads = new HashMap<>();
             }
 
             return request.doFormFile(url, params, list, heads);

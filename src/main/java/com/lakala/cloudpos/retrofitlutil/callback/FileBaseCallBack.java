@@ -24,11 +24,17 @@ public abstract class FileBaseCallBack extends BaseCallBack<File> {
     }
 
     @Override
-    public File parseResponse(Response response) throws IOException {
-        return saveFile(response);
+    public File parseResponse(retrofit2.Response<ResponseBody> response) {
+        try {
+            return saveFile(response);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        return null;
     }
 
-    private File saveFile(Response response) throws IOException {
+    private File saveFile(retrofit2.Response<ResponseBody> response) throws IOException {
         ResponseBody body = response.body();
 
         if (body == null) {
