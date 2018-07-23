@@ -34,13 +34,4 @@ public class HttpResponse {
     public void setMessage(String message) {
         this.message = message;
     }
-
-    @Override
-    public String toString() {
-        return "HttpResponse{" +
-                "code=" + code +
-                ", body='" + body + '\'' +
-                ", message='" + message + '\'' +
-                '}';
-    }
 }

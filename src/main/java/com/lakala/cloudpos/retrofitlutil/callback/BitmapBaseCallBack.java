@@ -3,6 +3,8 @@ package com.lakala.cloudpos.retrofitlutil.callback;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 
+import java.io.IOException;
+
 import okhttp3.Response;
 import okhttp3.ResponseBody;
 
@@ -14,7 +16,7 @@ import okhttp3.ResponseBody;
 public abstract class BitmapBaseCallBack extends BaseCallBack<Bitmap> {
 
     @Override
-    public Bitmap parseResponse(retrofit2.Response<ResponseBody> response){
+    public Bitmap parseResponse(Response response) throws IOException {
         ResponseBody body = response.body();
         if (body == null) {
             return null;

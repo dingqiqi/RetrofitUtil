@@ -4,7 +4,6 @@ import com.lakala.cloudpos.retrofitlutil.RetrofitUtil;
 import com.lakala.cloudpos.retrofitlutil.call.RetrofitCall;
 import com.lakala.cloudpos.retrofitlutil.inter.BaseRequestInter;
 
-import java.util.HashMap;
 import java.util.Map;
 
 import okhttp3.ResponseBody;
@@ -33,10 +32,6 @@ public class GetRequest extends BaseRequest {
     public Call<ResponseBody> buildCall(BaseRequestInter request) {
         if (request == null) {
             return null;
-        }
-
-        if (heads == null) {
-            heads = new HashMap<>();
         }
 
         return request.doGet(url, heads);

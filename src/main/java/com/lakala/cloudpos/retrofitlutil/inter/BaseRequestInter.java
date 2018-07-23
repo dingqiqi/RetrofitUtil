@@ -28,6 +28,7 @@ import retrofit2.http.Url;
 
 public interface BaseRequestInter {
 
+    @Streaming //大文件时要加不然会OOM
     @GET
     Call<ResponseBody> doGet(@Url String url, @HeaderMap Map<String, String> heads);
 
@@ -39,11 +40,16 @@ public interface BaseRequestInter {
     @POST
     Call<ResponseBody> doPost(@Url String url, @Body RequestBody body, @HeaderMap Map<String, String> heads);
 
+//    @Multipart
+//    @POST
+//    Call<ResponseBody> doFile(@Url String url, @Part MultipartBody.Part body, @HeaderMap Map<String, String> heads);
+
     @Multipart
     @POST
     Call<ResponseBody> doFormFile(@Url String url, @QueryMap Map<String, String> params,
-                                  @Part List<MultipartBody.Part> list, @HeaderMap Map<String, String> heads);
+                                     @Part List<MultipartBody.Part> list, @HeaderMap Map<String, String> heads);
 
+    @Streaming //大文件时要加不然会OOM
     @Multipart
     @POST
     Call<ResponseBody> doDownload(@Url String url, @FieldMap Map<String, String> params,

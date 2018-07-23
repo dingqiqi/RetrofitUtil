@@ -16,7 +16,6 @@ import javax.net.ssl.SSLSocketFactory;
 import okhttp3.OkHttpClient;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
-import retrofit2.converter.scalars.ScalarsConverterFactory;
 
 /**
  * RetrofitUtil
@@ -90,9 +89,6 @@ public class RetrofitUtil {
 
         //Json 解析
         mRetrofit = builder.client(httpClient)
-                //返回String
-                .addConverterFactory(ScalarsConverterFactory.create())
-                //返回json数据
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
     }

@@ -5,7 +5,6 @@ import java.io.IOException;
 import okhttp3.Response;
 import okhttp3.ResponseBody;
 
-
 /**
  * StringBaseCallBack
  * Created by dingqq on 2018/7/13.
@@ -14,19 +13,13 @@ import okhttp3.ResponseBody;
 public abstract class StringBaseCallBack extends BaseCallBack<String> {
 
     @Override
-    public String parseResponse(retrofit2.Response<ResponseBody> response) {
+    public String parseResponse(Response response) throws IOException {
         ResponseBody body = response.body();
         if (body == null) {
             return null;
         }
 
-        try {
-            return body.string();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        return null;
+        return body.string();
     }
 
 }

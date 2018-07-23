@@ -1,7 +1,5 @@
 package com.lakala.cloudpos.retrofitlutil.call;
 
-import android.util.Log;
-
 import com.lakala.cloudpos.retrofitlutil.RetrofitUtil;
 import com.lakala.cloudpos.retrofitlutil.callback.BaseCallBack;
 import com.lakala.cloudpos.retrofitlutil.request.BaseRequest;
@@ -47,16 +45,27 @@ public class RetrofitCall {
         if (mCall != null) {
             mCall.enqueue(new Callback<ResponseBody>() {
                 @Override
-                public void onResponse(Call<ResponseBody> call, final Response<ResponseBody> response) {
+                public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                     if (!call.isCanceled()) {
-                        final Object o = callBack.parseResponse(response);
+                        final ResponseBody body = response.body();
+                        if (body == null) {
 
-                        RetrofitUtil.getInstance().getHandler().post(new Runnable() {
-                            @Override
-                            public void run() {
-                                callBack.onSuccess(o);
-                            }
-                        });
+                            RetrofitUtil.getInstance().getHandler().post(new Runnable() {
+                                @Override
+                                public void run() {
+                                    callBack.onFail(0, "body is null", new IllegalArgumentException("body is null"));
+                                }
+                            });
+
+                        } else {
+                            RetrofitUtil.getInstance().getHandler().post(new Runnable() {
+                                @Override
+                                public void run() {
+                                    callBack.onSuccess(body);
+                                }
+                            });
+
+                        }
                     }
                 }
 
@@ -73,7 +82,6 @@ public class RetrofitCall {
                     }
                 }
             });
-
         } else {
             throw new IllegalArgumentException("buildRequest is null");
         }
