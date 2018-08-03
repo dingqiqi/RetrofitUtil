@@ -54,7 +54,11 @@ public class RetrofitCall {
                         RetrofitUtil.getInstance().getHandler().post(new Runnable() {
                             @Override
                             public void run() {
-                                callBack.onSuccess(o);
+                                if (response.isSuccessful()) {
+                                    callBack.onSuccess(o);
+                                } else {
+                                    callBack.onFail(response.code(), response.message(), new IllegalArgumentException(response.message()));
+                                }
                             }
                         });
                     }

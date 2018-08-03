@@ -3,6 +3,7 @@ package com.lakala.cloudpos.retrofitlutil;
 import android.os.Handler;
 import android.os.Looper;
 import android.text.TextUtils;
+import android.util.Log;
 
 import com.lakala.cloudpos.retrofitlutil.builder.GetBuilder;
 import com.lakala.cloudpos.retrofitlutil.builder.PostBuilder;
@@ -27,7 +28,7 @@ public class RetrofitUtil {
     //默认超时时间
     private static final int DEFAULT_TIME_OUT = 20;
 
-    private static OkHttpClient mOkHttpClient;
+    public static OkHttpClient mOkHttpClient;
 
     private Handler mHandler = new Handler(Looper.getMainLooper());
 
@@ -82,7 +83,7 @@ public class RetrofitUtil {
      * @param httpClient okHttpClient
      */
     public static void initRetrofit(String baseUrl, OkHttpClient httpClient) {
-        Retrofit.Builder builder = new Retrofit.Builder();
+        Retrofit.Builder builder = mRetrofit == null ? new Retrofit.Builder() : mRetrofit.newBuilder();
 
         if (!TextUtils.isEmpty(baseUrl)) {
             builder.baseUrl(baseUrl);
